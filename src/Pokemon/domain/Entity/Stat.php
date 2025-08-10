@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Pokemon\domain\Entity;
+
+use App\Pokemon\domain\Repository\StatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: StatRepository::class)]
+class Stat
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column]
+    private ?int $base_stat = null;
+
+    #[ORM\Column]
+    private ?int $effort = null;
+
+    /**
+     * @var Collection<int, Pokemon>
+     */
+    #[ORM\ManyToMany(targetEntity: Pokemon::class, mappedBy: 'stats')]
+    private Collection $pokemon;
+
+    public function __construct()
+    {
+        $this->pokemon = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getBaseStat(): ?int
+    {
+        return $this->base_stat;
+    }
+
+    public function setBaseStat(int $base_stat): static
+    {
+        $this->base_stat = $base_stat;
+
+        return $this;
+    }
+
+    public function getEffort(): ?int
+    {
+        return $this->effort;
+    }
+
+    public function setEffort(int $effort): static
+    {
+        $this->effort = $effort;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pokemon>
+     */
+    public function getPokemon(): Collection
+    {
+        return $this->pokemon;
+    }
+
+    public function addPokemon(Pokemon $pokemon): static
+    {
+        if (!$this->pokemon->contains($pokemon)) {
+            $this->pokemon->add($pokemon);
+            $pokemon->addStat($this);
+        }
+
+        return $this;
+    }
+
+    public function removePokemon(Pokemon $pokemon): static
+    {
+        if ($this->pokemon->removeElement($pokemon)) {
+            $pokemon->removeStat($this);
+        }
+
+        return $this;
+    }
+}
