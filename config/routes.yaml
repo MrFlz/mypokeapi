@@ -1,10 +1,10 @@
 # Rutas manuales
 pokemon_list_pokemons:
-    path: /pokemones
+    path: /pokemons
     controller: App\Pokemon\infrastructure\PokemonController::listPokemons
     methods: [GET]
 
 pokemon_find_pokemon:
-    path: /pokemones/{name}
+    path: /pokemons/{name}
     controller: App\Pokemon\infrastructure\PokemonController::findPokemon
     methods: [GET]

@@ -7,12 +7,8 @@ use App\Pokemon\domain\Exception\PokemonNotFoundException;
 
 class FindPokemonService
 {
-    //private PokemonRepositoryInterface $pokemonRepository;
-
     public function __construct(private PokemonRepositoryInterface $pokemonRepository)
-    {
-        //$this->pokemonRepository = $pokemonRepository;
-    }
+    { }
 
     /**
      * @throws PokemonNotFoundException

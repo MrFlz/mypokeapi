@@ -11,20 +11,29 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
+    # Para que todas las clases en src/Pokemon/infrastructure/
+    # (controladores, comandos, etc.) sean servicios.
+    App\Pokemon\infrastructure\:
+        resource: '../src/Pokemon/infrastructure/'
+        # Excluimos el directorio de Doctrine para evitar conflictos en la inyección de dependencias
+        # Y para que los comandos de Doctrine funcionen sin problemas.
+        exclude: '../src/Pokemon/infrastructure/Doctrine'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Configuración específica para el repositorio de Doctrine
+    # como un servicio para que pueda ser inyectado.
+    App\Pokemon\infrastructure\Doctrine\Repository\PokemonRepository:
+        public: true
+        tags: [ 'doctrine.repository_service' ]
 
-    #pokemon.find:
-    #   alias: App\Pokemon\application\FindPokemonService
-    #   public: true
-    #
-    #pokemon.list:
-    #   alias: App\Pokemon\application\ListPokemonsService
-    #   public: true
-    
-    App\Pokemon\domain\PokemonRepositoryInterface: '@App\Pokemon\infrastructure\Doctrine\Repository\PokemonRepository'
+    # Clases de la capa de aplicación (servicios) sean servicios.
+    App\Pokemon\application\:
+        resource: '../src/Pokemon/application/'
+
+    # Clases de la capa de dominio sean servicios.
+    App\Pokemon\domain\:
+        resource: '../src/Pokemon/domain/'
+
+    # Cuando alguien pida la interfaz 'PokemonRepositoryInterface',
+    # siempre dale una instancia del repositorio de Doctrine.
+    App\Pokemon\domain\PokemonRepositoryInterface:
+        alias: App\Pokemon\infrastructure\Doctrine\Repository\PokemonRepository
