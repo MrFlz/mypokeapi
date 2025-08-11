@@ -43,17 +43,39 @@ class PokemonRepository extends ServiceEntityRepository implements PokemonReposi
 
     private function convertDoctrineToDomain(DoctrinePokemon $doctrinePokemon): Pokemon
     {
+        // Aquí podría asociarse mejor a un DTO?
+        $abilities = array_map(function($ability) {
+            return [
+                'name' => $ability->getName(),
+                'is_hidden' => $ability->isHidden(),
+                'slot' => $ability->getSlot(),
+            ];
+        }, $doctrinePokemon->getAbilities()->toArray());
+
+        $stats = array_map(function($stat) {
+            return [
+                'name' => $stat->getName(),
+                'base_stat' => $stat->getBaseStat(),
+                'effort' => $stat->getEffort(),
+            ];
+        }, $doctrinePokemon->getStats()->toArray());
+
+        $types = array_map(function($type) {
+            return [
+                'name' => $type->getName(),
+                'slot' => $type->getSlot(),
+            ];
+        }, $doctrinePokemon->getTypes()->toArray());
+        
         return new Pokemon(
             $doctrinePokemon->getId(),
             $doctrinePokemon->getName(),
             $doctrinePokemon->getHeight(),
             $doctrinePokemon->getWeight(),
             $doctrinePokemon->getBaseExperience(),
-            // Aquí necesitarás lógica para convertir las colecciones
-            // de Abilities, Stats, y Types a un array simple
-            [],
-            [],
-            []
+            $abilities,
+            $stats,
+            $types,
         );
     }
 }

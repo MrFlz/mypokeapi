@@ -30,19 +30,19 @@ class Pokemon
     /**
      * @var Collection<int, Ability>
      */
-    #[ORM\ManyToMany(targetEntity: Ability::class, inversedBy: 'pokemon')]
+    #[ORM\ManyToMany(targetEntity: Ability::class, inversedBy: 'pokemon', cascade: ['persist'])]
     private Collection $abilities;
 
     /**
      * @var Collection<int, Stat>
      */
-    #[ORM\ManyToMany(targetEntity: Stat::class, inversedBy: 'pokemon')]
+    #[ORM\ManyToMany(targetEntity: Stat::class, inversedBy: 'pokemon', cascade: ['persist'])]
     private Collection $stats;
 
     /**
      * @var Collection<int, Type>
      */
-    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'pokemon')]
+    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'pokemon', cascade: ['persist'])]
     private Collection $types;
 
     public function __construct()

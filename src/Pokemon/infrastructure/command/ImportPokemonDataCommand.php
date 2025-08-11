@@ -14,6 +14,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use App\Pokemon\infrastructure\Doctrine\Entity\Pokemon as DoctrinePokemon;
 use App\Pokemon\infrastructure\Doctrine\Entity\Ability as DoctrineAbility;
+use App\Pokemon\infrastructure\Doctrine\Entity\Stat as DoctrineStat;
+use App\Pokemon\infrastructure\Doctrine\Entity\Type as DoctrineType;
 
 #[AsCommand(
     name: 'app:import-pokemon-data',
@@ -46,7 +48,29 @@ class ImportPokemonDataCommand extends Command
             $pokemon->setBaseExperience($pokemonDetails['base_experience']);
 
             foreach ($pokemonDetails['abilities'] as $abilityData) {
-                // ... PENDIENTE lógica para manejar las habilidades
+                $ability = new DoctrineAbility();
+                $ability->setName($abilityData['ability']['name']);
+                $ability->setIsHidden($abilityData['is_hidden']);
+                $ability->setSlot($abilityData['slot']);
+
+                $pokemon->addAbility($ability);
+            }
+            
+            foreach ($pokemonDetails['stats'] as $statData) {
+                $stat = new DoctrineStat();
+                $stat->setName($statData['stat']['name']);
+                $stat->setBaseStat($statData['base_stat']);
+                $stat->setEffort($statData['effort']);
+
+                $pokemon->addStat($stat);
+            }
+            
+            foreach ($pokemonDetails['types'] as $typeData) {
+                $type = new DoctrineType();
+                $type->setName($typeData['type']['name']);
+                $type->setSlot($typeData['slot']);
+
+                $pokemon->addType($type);
             }
 
             $this->entityManager->persist($pokemon);
