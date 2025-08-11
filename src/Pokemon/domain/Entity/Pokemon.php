@@ -15,7 +15,6 @@ class Pokemon
         private array $types
     ) { }
 
-    // Métodos Getters (necesarios para acceder a las propiedades)
     public function getId(): int
     {
         return $this->id;
@@ -105,7 +104,7 @@ class Pokemon
         return $this;
     }
 
-    // Método para convertir el objeto a un array (útil para la respuesta JSON)
+    // Convertir el objeto a un array (para la respuesta JSON)
     public function toArray(): array
     {
         return [

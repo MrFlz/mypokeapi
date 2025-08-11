@@ -3,15 +3,15 @@
 namespace App\Pokemon\application;
 
 use App\Pokemon\domain\PokemonRepositoryInterface;
-use App\Pokemon\domain\PokemonNotFoundException;
+use App\Pokemon\domain\Exception\PokemonNotFoundException;
 
 class FindPokemonService
 {
-    private PokemonRepositoryInterface $pokemonRepository;
+    //private PokemonRepositoryInterface $pokemonRepository;
 
-    public function __construct(PokemonRepositoryInterface $pokemonRepository)
+    public function __construct(private PokemonRepositoryInterface $pokemonRepository)
     {
-        $this->pokemonRepository = $pokemonRepository;
+        //$this->pokemonRepository = $pokemonRepository;
     }
 
     /**

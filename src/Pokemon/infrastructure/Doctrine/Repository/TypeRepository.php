@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Pokemon\domain\Repository;
+namespace App\Pokemon\infrastructure\Doctrine\Repository;
 
-use App\Pokemon\domain\Entity\Stat;
+use App\Pokemon\domain\Entity\Type;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Stat>
+ * @extends ServiceEntityRepository<Type>
  */
-class StatRepository extends ServiceEntityRepository
+class TypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Stat::class);
+        parent::__construct($registry, Type::class);
     }
 
     //    /**
-    //     * @return Stat[] Returns an array of Stat objects
+    //     * @return Type[] Returns an array of Type objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
+    //            ->orderBy('t.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Stat
+    //    public function findOneBySomeField($value): ?Type
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

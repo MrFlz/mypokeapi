@@ -6,11 +6,11 @@ use App\Pokemon\domain\PokemonRepositoryInterface;
 
 class ListPokemonsService
 {
-    private PokemonRepositoryInterface $pokemonRepository;
+    //private PokemonRepositoryInterface $pokemonRepository;
 
-    public function __construct(PokemonRepositoryInterface $pokemonRepository)
+    public function __construct(private PokemonRepositoryInterface $pokemonRepository)
     {
-        $this->pokemonRepository = $pokemonRepository;
+        // $this->pokemonRepository = $pokemonRepository;
     }
 
     public function execute(int $limit = 10): array

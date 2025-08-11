@@ -18,3 +18,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    #pokemon.find:
+    #   alias: App\Pokemon\application\FindPokemonService
+    #   public: true
+    #
+    #pokemon.list:
+    #   alias: App\Pokemon\application\ListPokemonsService
+    #   public: true
+    
+    App\Pokemon\domain\PokemonRepositoryInterface: '@App\Pokemon\infrastructure\Doctrine\Repository\PokemonRepository'

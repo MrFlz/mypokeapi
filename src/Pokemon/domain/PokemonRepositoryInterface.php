@@ -12,7 +12,7 @@ interface PokemonRepositoryInterface
      *
      * @throws PokemonNotFoundException 
      */
-    public function findByName(string $name): Pokemon;
+    public function findByName(string $name): ?Pokemon;
 
     /**
      * Lista los Pokemones, limitado a 10
