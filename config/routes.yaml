@@ -1,5 +1,10 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# Rutas manuales
+pokemon_list_pokemons:
+    path: /pokemones
+    controller: App\Pokemon\infrastructure\PokemonController::listPokemons
+    methods: [GET]
+
+pokemon_find_pokemon:
+    path: /pokemones/{name}
+    controller: App\Pokemon\infrastructure\PokemonController::findPokemon
+    methods: [GET]

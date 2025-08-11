@@ -2,45 +2,21 @@
 
 namespace App\Pokemon\domain\Entity;
 
-use App\Pokemon\domain\Repository\StatRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: StatRepository::class)]
 class Stat
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    public function __construct(
+        private int $id,
+        private string $name,
+        private int $base_stat,
+        private int $effort,
+    ) { }
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
-    #[ORM\Column]
-    private ?int $base_stat = null;
-
-    #[ORM\Column]
-    private ?int $effort = null;
-
-    /**
-     * @var Collection<int, Pokemon>
-     */
-    #[ORM\ManyToMany(targetEntity: Pokemon::class, mappedBy: 'stats')]
-    private Collection $pokemon;
-
-    public function __construct()
-    {
-        $this->pokemon = new ArrayCollection();
-    }
-
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -52,7 +28,7 @@ class Stat
         return $this;
     }
 
-    public function getBaseStat(): ?int
+    public function getBaseStat(): int
     {
         return $this->base_stat;
     }
@@ -64,7 +40,7 @@ class Stat
         return $this;
     }
 
-    public function getEffort(): ?int
+    public function getEffort(): int
     {
         return $this->effort;
     }
@@ -76,30 +52,13 @@ class Stat
         return $this;
     }
 
-    /**
-     * @return Collection<int, Pokemon>
-     */
-    public function getPokemon(): Collection
+    public function toArray(): array
     {
-        return $this->pokemon;
-    }
-
-    public function addPokemon(Pokemon $pokemon): static
-    {
-        if (!$this->pokemon->contains($pokemon)) {
-            $this->pokemon->add($pokemon);
-            $pokemon->addStat($this);
-        }
-
-        return $this;
-    }
-
-    public function removePokemon(Pokemon $pokemon): static
-    {
-        if ($this->pokemon->removeElement($pokemon)) {
-            $pokemon->removeStat($this);
-        }
-
-        return $this;
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'base_stat' => $this->base_stat,
+            'effort' => $this->effort,
+        ];
     }
 }
