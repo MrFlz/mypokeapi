@@ -8,3 +8,18 @@ pokemon_find_pokemon:
     path: /pokemons/{name}
     controller: App\Pokemon\infrastructure\PokemonController::findPokemon
     methods: [GET]
+
+pokemon_create_pokemon:
+    path: /pokemons
+    controller: App\Pokemon\infrastructure\PokemonController::createPokemon
+    methods: [POST]
+
+# pokemon_update:
+    # path: /pokemones/{name}
+    # controller: App\Pokemon\infrastructure\PokemonController::update
+    # methods: [PUT]
+
+pokemon_delete_pokemon:
+    path: /pokemons/{name}
+    controller: App\Pokemon\infrastructure\PokemonController::deletePokemon
+    methods: [DELETE]

@@ -20,4 +20,8 @@ interface PokemonRepositoryInterface
      * @return Pokemon[]
      */
     public function list(int $limit = 10): array;
+
+    public function save(Pokemon $pokemon): void;
+    
+    public function delete(Pokemon $pokemon): void;
 }
